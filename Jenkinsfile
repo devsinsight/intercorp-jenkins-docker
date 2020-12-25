@@ -9,13 +9,16 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'cd ./example-react; npm install'
+        sh 'npm install'
       }
     }
 
     stage('Test') {
+      environment {
+        CI = 'true'
+      }
       steps {
-        sh 'cd ./example-react; npm run test -- --coverage --watchAll=false'
+        sh './jenkins/scripts/test.sh'
       }
     }
 
